@@ -1,8 +1,7 @@
-from cgitb import html
-from turtle import title
 from urllib.request import urlopen
 from urllib.error import HTTPError, URLError
 from bs4 import BeautifulSoup
+
 
 def getTitle(url):
     try:
