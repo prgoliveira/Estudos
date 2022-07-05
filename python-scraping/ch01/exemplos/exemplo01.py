@@ -1,16 +1,24 @@
 from cgitb import html
+from turtle import title
 from urllib.request import urlopen
 from urllib.error import HTTPError, URLError
 from bs4 import BeautifulSoup
 
+def getTitle(url):
+    try:
+        html = urlopen(url)
+    except HTTPError as e:
+        return None
+    try:
+        bs = BeautifulSoup(html.read(), 'html5lib')
+        title = bs.body.h1
+    except AttributeError as e:
+        return None    
+    return title
 
-try:
-    html = urlopen('https://pythonscraping.com/pages/page1.html')
-except HTTPError as e:
-    print(e)
+
+title = getTitle('https://pythonscraping.com/pages/page1.html')
+if title == None:
+    print('Title could not be found')
 else:
-    print('It Worked')
-
-bs = BeautifulSoup(html.read(), 'html5lib')
-
-print(bs)
+    print(title)
